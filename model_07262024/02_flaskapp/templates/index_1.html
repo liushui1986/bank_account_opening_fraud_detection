@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Fraud Detection Form</h1>
+        <form id="fraud-form" method="POST" action="/predict">
+            <div class="form-group">
+                <label for="income">Income (0.1 to 0.9) </label>
+                <input type="number" step="0.01" class="form-control" id="income" name="income" required>
+            </div>
+            <div class="form-group">
+                <label for="name_email_similarity">Name Email Similarity</label>
+                <input type="number" step="0.01" class="form-control" id="name_email_similarity" name="name_email_similarity" required>
+            </div>
+            <div class="form-group">
+                <label for="living_length">Living Length in Current Address in Months </label>
+                <input type="number" class="form-control" id="living_length" name="living_length" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="days_since_submission">Days Since Submission</label>
+                <input type="number" class="form-control" id="days_since_submission" name="days_since_submission" required>
+            </div>
+            <div class="form-group">
+                <label for="applications_zip">Applications in Same Zip Code in Last 4 Weeks</label>
+                <input type="number" class="form-control" id="applications_zip" name="applications_zip" required>
+            </div>
+            <div class="form-group">
+                <label for="applications_bank_branch">Applications in Bank Branch in Last 8 Weeks</label>
+                <input type="number" class="form-control" id="applications_bank_branch" name="applications_bank_branch" required>
+            </div>
+            <div class="form-group">
+                <label for="distinct_emails">Distinct Emails on Device in Last 8 Weeks</label>
+                <input type="number" class="form-control" id="distinct_emails" name="distinct_emails">
+            </div>
+            <div class="form-group">
+                <label for="risk_score">Risk Score</label>
+                <input type="number" class="form-control" id="risk_score" name="risk_score" required>
+            </div>
+            <div class="form-group">
+                <label for="credit_limit">Credit Limit</label>
+                <input type="number" class="form-control" id="credit_limit" name="credit_limit" required>
+            </div>
+            <div class="form-group">
+                <label for="session_length">Session Length in Minutes</label>
+                <input type="number" class="form-control" id="session_length" name="session_length" required>
+            </div>
+            <div class="form-group">
+                <label for="emails_dob">Emails with Same DOB in Last 4 Weeks</label>
+                <input type="number" class="form-control" id="emails_dob" name="emails_dob" required>
+            </div>
+            <div class="form-group">
+                <label for="month">Month</label>
+                <input type="number" class="form-control" id="month" name="month" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Free Email (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="email" name="email" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="home_phone">Home Phone Valid (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="home_phone" name="home_phone" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="other_cards">Other Cards in Same Bank (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="other_cards" name="other_cards" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="location_check">Foreign Location (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="location_check" name="location_check" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="sign_out">Keep alive session (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="sign_out" name="sign_out" min="0" max="1" step="1">
+            </div>
+            <div class="form-group">
+                <label for="previous_address">Previous Address History (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="previous_address" name="previous_address" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="payment_type">Payment Type is AC (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="payment_type" name="payment_type" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="employment_status">Employment Status is CA (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="employment_status" name="employment_status" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="housing_status">Housing Status is BA (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="housing_status" name="housing_status" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="device_os">Device Operating System is Windows (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="device_os" name="device_os" min="0" max="1" step="1" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        {% if prediction %}
+        <div class="mt-4">
+            <h3>Prediction Result</h3>
+            <p>The prediction is: <strong>{{ result }}</strong></p>
+            <p>Probability of Fraud: <strong>{{ probability }}</strong></p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
