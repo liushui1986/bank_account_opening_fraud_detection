@@ -1,129 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Fraud Detection</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+    <div class="container">
+        <h1 class="mt-5">Fraud Detection Form</h1>
+        <form id="fraud-form" method="POST" action="/predict">
+            <div class="form-group">
+                <label for="income">Income (0.1 to 0.9) </label>
+                <input type="number" step="0.01" class="form-control" id="income" name="income" required>
+            </div>
+            <div class="form-group">
+                <label for="name_email_similarity">Name Email Similarity</label>
+                <input type="number" step="0.01" class="form-control" id="name_email_similarity" name="name_email_similarity" required>
+            </div>
+            <div class="form-group">
+                <label for="living_length">Living Length in Current Address in Months </label>
+                <input type="number" class="form-control" id="living_length" name="living_length" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="days_since_submission">Days Since Submission</label>
+                <input type="number" class="form-control" id="days_since_submission" name="days_since_submission" required>
+            </div>
+            <div class="form-group">
+                <label for="applications_zip">Applications in Same Zip Code in Last 4 Weeks</label>
+                <input type="number" class="form-control" id="applications_zip" name="applications_zip" required>
+            </div>
+            <div class="form-group">
+                <label for="applications_bank_branch">Applications in Bank Branch in Last 8 Weeks</label>
+                <input type="number" class="form-control" id="applications_bank_branch" name="applications_bank_branch" required>
+            </div>
+            <div class="form-group">
+                <label for="distinct_emails">Distinct Emails on Device in Last 8 Weeks</label>
+                <input type="number" class="form-control" id="distinct_emails" name="distinct_emails">
+            </div>
+            <div class="form-group">
+                <label for="risk_score">Risk Score</label>
+                <input type="number" class="form-control" id="risk_score" name="risk_score" required>
+            </div>
+            <div class="form-group">
+                <label for="credit_limit">Credit Limit</label>
+                <input type="number" class="form-control" id="credit_limit" name="credit_limit" required>
+            </div>
+            <div class="form-group">
+                <label for="session_length">Session Length in Minutes</label>
+                <input type="number" class="form-control" id="session_length" name="session_length" required>
+            </div>
+            <div class="form-group">
+                <label for="emails_dob">Emails with Same DOB in Last 4 Weeks</label>
+                <input type="number" class="form-control" id="emails_dob" name="emails_dob" required>
+            </div>
+            <div class="form-group">
+                <label for="month">Month</label>
+                <input type="number" class="form-control" id="month" name="month" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Free Email (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="email" name="email" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="home_phone">Home Phone Valid (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="home_phone" name="home_phone" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="other_cards">Other Cards in Same Bank (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="other_cards" name="other_cards" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="location_check">Foreign Location (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="location_check" name="location_check" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="sign_out">Keep alive session (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="sign_out" name="sign_out" min="0" max="1" step="1">
+            </div>
+            <div class="form-group">
+                <label for="previous_address">Previous Address History (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="previous_address" name="previous_address" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="payment_type">Payment Type is AC (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="payment_type" name="payment_type" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="employment_status">Employment Status is CA (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="employment_status" name="employment_status" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="housing_status">Housing Status is BA (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="housing_status" name="housing_status" min="0" max="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="device_os">Device Operating System is Windows (1: yes, 0: no)</label>
+                <input type="number" class="form-control" id="device_os" name="device_os" min="0" max="1" step="1" required>
+            </div>
 
-<h2>Fraud Detection Form</h2>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
 
-<form method="POST" action="/predict">
-    Email (Free: 1, Not Free: 0):<br>
-    <input type="number" name="email is free?" min="0" max="1" step="1" required><br><br>
+        {% if prediction %}
+        <div class="mt-4">
+            <h3>Prediction Result</h3>
+            <p>The prediction is: <strong>{{ result }}</strong></p>
+            <p>Probability of Fraud: <strong>{{ probability }}</strong></p>
+        </div>
+        {% endif %}
+    </div>
 
-    Home Phone is valid (Yes: 1, No: 0):<br>
-    <input type="number" name="home phone is valid?" min="0" max="1" step="1" required><br><br>
-
-    Mobile Phone is valid (Yes: 1, No: 0):<br>
-    <input type="number" name="mobile phone is valid?" min="0" max="1" step="1" required><br><br>
-
-    Has Other Cards in Same Bank (Yes: 1, No: 0):<br>
-    <input type="number" name="has other cards in same bank?" min="0" max="1" step="1" required><br><br>
-
-    Application from Foregn (Yes: 1, No: 0):<br>
-    <input type="number" name="application from foregn?" min="0" max="1" step="1" required><br><br>
-
-    Sign Out (Click: 0, Not Click: 1):<br>
-    <input type="number" name="sign_out" min="0" max="1" step="1"><br><br>
-
-    Previous Address History (Provided: 1, Not Provided: 0):<br>
-    <input type="number" name="previous address history" min="0" max="1" step="1" required><br><br>
-
-    Income:<br>
-    <input type="number" name="income" step="0.1" min="0.1" required><br><br>
-
-    Name-Email Similarity:<br>
-    <input type="number" name="name_email_similarity" step="0.1" min="0.1" required><br><br>
-
-    Length of Living in Current Address (Months):<br>
-    <input type="number" name="living_length" min="0" required><br><br>
-
-    Age:<br>
-    <input type="number" name="age" step="1" min="10" max="90" required><br><br>
-
-    Days Since Submission:<br>
-    <input type="number" name="days_since_submission" min="0" required><br><br>
-
-    Applications in Same Zip Code in Last 4 Weeks:<br>
-    <input type="number" name="applications_zip" min="0" required><br><br>
-
-    Applications in Last 6 Hours:<br>
-    <input type="number" name="applications_6_hours" min="0" required><br><br>
-
-    Applications in Last 24 Hours:<br>
-    <input type="number" name="applications_24_hours" min="0" required><br><br>
-
-    Applications in Bank Branch in Last 8 Weeks:<br>
-    <input type="number" name="applications_bank_branch" min="0" required><br><br>
-
-    Emails for Applicants with Same DOB in Last 4 Weeks:<br>
-    <input type="number" name="emails_dob" min="0" required><br><br>
-
-    Internal Application Risk Score:<br>
-    <input type="number" name="risk_score" min="-191" max="389" required><br><br>
-
-    Proposed Credit Limit:<br>
-    <input type="number" name="credit_limit" min="200" max="2000" required><br><br>
-
-    Session Length (Minutes):<br>
-    <input type="number" name="session_length" min="0" required><br><br>
-
-    Distinct Emails on Device in Last 8 Weeks (Optional):<br>
-    <input type="number" name="distinct_emails" min="0" max="2" step="1"><br><br>
-
-    Month:<br>
-    <input type="number" name="month" min="0" max="7" required><br><br>
-
-    Payment Type:<br>
-    <select name="payment_type" required>
-        <option value="AA">AA</option>
-        <option value="AB">AB</option>
-        <option value="AC">AC</option>
-        <option value="AD">AD</option>
-        <option value="AE">AE</option>
-    </select><br><br>
-
-    Employment Status:<br>
-    <select name="employment_status" required>
-        <option value="CA">CA</option>
-        <option value="CB">CB</option>
-        <option value="CC">CC</option>
-        <option value="CD">CD</option>
-        <option value="CE">CE</option>
-        <option value="CF">CF</option>
-        <option value="CG">CG</option>
-    </select><br><br>
-
-    Housing Status:<br>
-    <select name="housing_status" required>
-        <option value="BA">BA</option>
-        <option value="BB">BB</option>
-        <option value="BC">BC</option>
-        <option value="BD">BD</option>
-        <option value="BE">BE</option>
-        <option value="BF">BF</option>
-        <option value="BG">BG</option>
-    </select><br><br>
-
-    Internet (Yes: 1, No: 0):<br>
-    <input type="number" name="internet" min="0" max="1" required><br><br>
-
-    Device Operating System:<br>
-    <select name="device_os" required>
-        <option value="Linux">Linux</option>
-        <option value="Macintosh">Macintosh</option>
-        <option value="Other">Other</option>
-        <option value="Windows">Windows</option>
-        <option value="X11">X11</option>
-    </select><br><br>
-
-    <button type="submit">Submit</button>
-
-</form>
-
-{% if prediction %}
-<p>The prediction is: {{ prediction }}</p>
-{% endif %}
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

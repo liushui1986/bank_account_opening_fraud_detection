@@ -11,7 +11,7 @@ with open('baf_model_sm_0726_2.pkl', 'rb') as f:
 
 @app.route('/')
 def index():
-    return render_template('index_1.html')
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
