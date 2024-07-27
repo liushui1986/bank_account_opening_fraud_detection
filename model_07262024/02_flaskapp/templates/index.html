@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fraud Detection Form</title>
+    <title>Bank Account Fraud Detection System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5">Fraud Detection Form</h1>
+        <h1 class="mt-5">Bank Account Fraud Detection System</h1>
         <form id="fraud-form" method="POST" action="/predict">
             <div class="form-group">
                 <label for="income">Income (0.1 to 0.9) </label>
                 <input type="number" step="0.01" class="form-control" id="income" name="income" required>
             </div>
             <div class="form-group">
-                <label for="name_email_similarity">Name Email Similarity</label>
+                <label for="name_email_similarity">Name Email Similarity (0.0 to 1.0) </label>
                 <input type="number" step="0.01" class="form-control" id="name_email_similarity" name="name_email_similarity" required>
             </div>
             <div class="form-group">
